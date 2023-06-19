@@ -7,6 +7,22 @@
 #include <stddef.h>
 
 /**
+ * struct global_info_s - global variables
+ * @file: Pointer to the file
+ * @line: Pointer to the current line
+ * @opcode: the opcode
+ * @arg: the opcode argument
+ */
+typedef struct global_info_s
+{
+	FILE *file;
+	char *line;
+	char *opcode;
+	char *arg;
+} global_info;
+extern global_info g_info;
+
+/**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
  * @prey: points to the previous element of the stack (or queue)
@@ -35,5 +51,8 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+
+/* HELPERS */
+void monty_interpreter(void);
 
 #endif
