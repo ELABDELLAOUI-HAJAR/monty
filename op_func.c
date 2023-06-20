@@ -8,18 +8,10 @@
 void _push(stack_t **stack, unsigned int line_number)
 {
 	if (!g_info.arg || is_number(g_info.arg) == 1)
-	{
-		free_all(*stack);
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+		op_error(2, *stack, g_info.opcode, line_number);
 
 	if (!add_nodeint_end(stack, atoi(g_info.arg)))
-	{
-		free_all(*stack);
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
+		op_error(1, *stack);
 }
 
 /**
@@ -66,11 +58,7 @@ void _pint(stack_t **stack, unsigned int line_number)
 	stack_t *current;
 
 	if (stack == NULL || *stack == NULL)
-	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
-		free_all(*stack);
-		exit(EXIT_FAILURE);
-	}
+		op_error(3, *stack, g_info.opcode, line_number);
 
 	current = *stack;
 
@@ -96,11 +84,7 @@ void _pop(stack_t **stack, unsigned int line_number)
 	stack_t *current, *prev = NULL;
 
 	if (stack == NULL || *stack == NULL)
-	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
-		free_all(*stack);
-		exit(EXIT_FAILURE);
-	}
+		op_error(4, *stack, g_info.opcode, line_number);
 
 	current = *stack;
 
@@ -132,11 +116,7 @@ void _swap(stack_t **stack, unsigned int line_number)
 	int tmp = 0;
 
 	if (stack_len(*stack) < 2)
-	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
-		free_all(*stack);
-		exit(EXIT_FAILURE);
-	}
+		op_error(5, *stack, g_info.opcode, line_number);
 
 	current = *stack;
 

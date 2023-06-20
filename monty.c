@@ -13,17 +13,11 @@ int main(int ac, char **av)
 	stack_t *stack = NULL;
 
 	if (ac != 2)
-	{
-		fprintf(stderr, "USAGE : monty file\n");
-		exit(EXIT_FAILURE);
-	}
+		global_error(1);
 
 	g_info.file = fopen(av[1], "r");
 	if (!g_info.file)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
-		exit(EXIT_FAILURE);
-	}
+		global_error(2, av[1]);
 
 	monty_interpreter(&stack);
 

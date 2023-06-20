@@ -13,11 +13,7 @@ void _mod(stack_t **stack, unsigned int line_number)
 
 
 	if (stack_len(*stack) < 2)
-	{
-		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
-		free_all(*stack);
-		exit(EXIT_FAILURE);
-	}
+		op_error(5, *stack, g_info.opcode, line_number);
 
 	current = *stack;
 
@@ -26,11 +22,7 @@ void _mod(stack_t **stack, unsigned int line_number)
 		if (current->next == NULL)
 		{
 			if (current->n == 0)
-			{
-				fprintf(stderr, "L%d: division by zero\n", line_number);
-				free_all(*stack);
-				exit(EXIT_FAILURE);
-			}
+				op_error_bis(7, *stack, g_info.opcode, line_number);
 			prev->n = prev->n % current->n;
 			prev->next = NULL;
 			free(current);
@@ -51,11 +43,7 @@ void _pchar(stack_t **stack, unsigned int line_number)
 	stack_t *current;
 
 	if (!stack || !(*stack))
-	{
-		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
-		free_all(*stack);
-		exit(EXIT_FAILURE);
-	}
+		op_error(3, *stack, g_info.opcode, line_number);
 
 	current = *stack;
 
@@ -63,17 +51,10 @@ void _pchar(stack_t **stack, unsigned int line_number)
 	{
 		if (current->next == NULL)
 		{
-			if (current->n >= 0  || current->n <= 127)
-			{
+			if (current->n >= 0  && current->n <= 127)
 				printf("%c\n", current->n);
-			}
 			else
-			{
-				fprintf(stderr, "L%d: can't pchar, value out of range\n",
-					line_number);
-				free_all(*stack);
-				exit(EXIT_FAILURE);
-			}
+				op_error_bis(8, *stack, g_info.opcode, line_number);
 		}
 		current = current->next;
 	}

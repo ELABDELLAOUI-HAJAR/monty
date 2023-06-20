@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
+#include <stdarg.h>
 
 /**
  * struct global_info_s - global variables
@@ -75,4 +76,8 @@ void _mul(stack_t **stack, unsigned int line_number);
 void _mod(stack_t **stack, unsigned int line_number);
 void _pchar(stack_t **stack, unsigned int line_number);
 
+/*   Error functions  */
+void global_error(int error_code, ...);
+void op_error(int error_code, ...);
+void op_error_bis(int error_code, ...);
 #endif

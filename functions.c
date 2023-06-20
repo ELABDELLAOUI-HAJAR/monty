@@ -34,12 +34,7 @@ void monty_interpreter(stack_t **stack)
 
 		p_func = get_op_func(g_info.opcode);
 		if (!p_func)
-		{
-			fprintf(stderr, "L%d: unknown instruction %s\n",
-				line_count, g_info.opcode);
-			free_all(*stack);
-			exit(EXIT_FAILURE);
-		}
+			op_error_bis(6, *stack, g_info.opcode, line_count);
 
 		p_func(stack, line_count);
 	}
