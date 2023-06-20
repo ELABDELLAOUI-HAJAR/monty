@@ -119,3 +119,34 @@ void _rotl(stack_t **stack, unsigned int line_number)
 	tmp->prev = NULL;
 	*stack = tmp;
 }
+
+/**
+ * _rotr - rotates the stack to the bottom.
+ * @stack: a pointer to the first node of the stack
+ * @line_number: the line number
+ */
+
+void _rotr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *prev = NULL, *curr, *next, *tmp;
+
+	(void) line_number;
+
+	if (!stack || !(*stack))
+		return;
+
+	curr = *stack;
+
+	while (curr)
+	{
+		tmp = curr;
+		next = curr->next;
+
+		curr->next = prev;
+		curr->prev = next;
+
+		curr = next;
+		prev = tmp;
+	}
+	*stack = prev;
+}
