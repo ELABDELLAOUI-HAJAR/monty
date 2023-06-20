@@ -33,3 +33,15 @@ void _add(stack_t **stack, unsigned int line_number)
 		current = current->next;
 	}
 }
+
+/**
+ * _nop - doesn't do anything
+ * @stack: a pointer to the first node of the stack
+ * @line_number: the line number
+ */
+
+void _nop(stack_t **stack, unsigned int line_number)
+{
+	(void)stack;
+	(void)line_number;
+}
