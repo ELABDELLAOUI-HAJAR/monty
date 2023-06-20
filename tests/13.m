@@ -3,7 +3,7 @@
 
 
 
-push 1
-push 0
+push -1
+push -20
+pall
 
-pchar test
