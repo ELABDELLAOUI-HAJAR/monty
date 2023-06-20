@@ -28,6 +28,10 @@ void monty_interpreter(stack_t **stack)
 
 		line_count++;
 		line_parser();
+
+		if (!g_info.opcode || g_info.opcode[0] == '#')
+			continue;
+
 		p_func = get_op_func(g_info.opcode);
 		if (!p_func)
 		{
