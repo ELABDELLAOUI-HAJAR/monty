@@ -15,11 +15,13 @@ void (*get_op_func(char *opcode))(stack_t **stack, unsigned int line_number)
 		{"swap", _swap},
 		{"add", _add},
 		{"nop", _nop},
-		{"sub", _sub}
+		{"sub", _sub},
+		{"div", _div},
+		{NULL, NULL}
 	};
 	int i = 0;
 
-	while (i < 8)
+	while (ops[i].opcode)
 	{
 		if (strcmp(ops[i].opcode, opcode) == 0)
 			return (ops[i].f);
