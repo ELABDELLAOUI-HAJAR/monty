@@ -49,8 +49,6 @@ void _mod(stack_t **stack, unsigned int line_number)
 void _pchar(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current;
-	int a_ascii = 97, z_ascii = 122;
-	int A_ascii = 65, Z_ascii = 90;
 
 	if (!stack || !(*stack))
 	{
@@ -65,8 +63,7 @@ void _pchar(stack_t **stack, unsigned int line_number)
 	{
 		if (current->next == NULL)
 		{
-			if ((current->n >= a_ascii && current->n <= z_ascii) ||
-			    (current->n >= A_ascii && current->n <= Z_ascii))
+			if (current->n >= 0  || current->n <= 127)
 			{
 				printf("%c\n", current->n);
 			}
