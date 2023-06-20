@@ -10,6 +10,8 @@ global_info g_info;
  */
 int main(int ac, char **av)
 {
+	stack_t *stack = NULL;
+
 	if (ac != 2)
 	{
 		fprintf(stderr, "USAGE : monty file\n");
@@ -23,7 +25,7 @@ int main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 
-	monty_interpreter();
+	monty_interpreter(&stack);
 
 	return (0);
 }

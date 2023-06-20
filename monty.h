@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 
 /**
  * struct global_info_s - global variables
@@ -25,7 +26,7 @@ extern global_info g_info;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
- * @prey: points to the previous element of the stack (or queue)
+ * @prev: points to the previous element of the stack (or queue)
  * @next: points to the next element of the stack (or queue)
  *
  * Description: doubly linked list node structure
@@ -34,7 +35,7 @@ extern global_info g_info;
 typedef struct stack_s
 {
 	int n;
-	struct stack_s *prey;
+	struct stack_s *prev;
 	struct stack_s *next;
 } stack_t;
 
@@ -53,6 +54,14 @@ typedef struct instruction_s
 } instruction_t;
 
 /* HELPERS */
-void monty_interpreter(void);
+void monty_interpreter(stack_t **stack);
+void free_all(stack_t *head);
+void line_parser(void);
+void (*get_op_func(char *opcode))(stack_t **stack, unsigned int line_number);
+void _push(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
+int is_number(char *str);
+stack_t *add_nodeint_end(stack_t **h, const int n);
+void free_stack(stack_t *head);
 
 #endif
