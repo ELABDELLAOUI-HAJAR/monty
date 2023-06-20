@@ -120,3 +120,37 @@ void _pop(stack_t **stack, unsigned int line_number)
 	}
 }
 
+
+/**
+ * _swap - swaps the top two elements of the stack
+ * @stack: a pointer the the first element of the stack
+ * @line_number: the line number
+ */
+void _swap(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current, *prev = NULL;
+	int tmp = 0;
+
+	if (stack_len(*stack) < 2)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		free_all(*stack);
+		exit(EXIT_FAILURE);
+	}
+
+	current = *stack;
+
+	while (current != NULL)
+	{
+		if (current->next == NULL)
+		{
+			tmp = prev->n;
+			prev->n = current->n;
+			current->n = tmp;
+			break;
+		}
+		prev = current;
+		current = current->next;
+	}
+}
+
