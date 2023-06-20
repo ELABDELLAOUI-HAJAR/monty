@@ -84,3 +84,39 @@ void _pint(stack_t **stack, unsigned int line_number)
 		current = current->next;
 	}
 }
+
+/**
+ * _pop - removes the top element of the stack
+ * @stack: a pointer to the first node of the stack
+ * @line_number: the line number
+ */
+
+void _pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current, *prev = NULL;
+
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		free_all(*stack);
+		exit(EXIT_FAILURE);
+	}
+
+	current = *stack;
+
+	while (current != NULL)
+	{
+		if (current->next == NULL)
+		{
+			if (current->prev != NULL)
+				prev->next = NULL;
+			else
+				*stack = NULL;
+			free(current);
+			break;
+		}
+		prev = current;
+		current = current->next;
+	}
+}
+

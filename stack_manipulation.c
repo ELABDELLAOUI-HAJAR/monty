@@ -53,7 +53,7 @@ void free_stack(stack_t *head)
 
 /**
  * stack_len - return stack length
- * @stack: the giving stack
+ * @head: the giving stack
  * Return: the length of the stack
  */
 int stack_len(stack_t *head)
