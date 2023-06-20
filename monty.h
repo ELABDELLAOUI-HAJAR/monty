@@ -76,6 +76,7 @@ void _mul(stack_t **stack, unsigned int line_number);
 void _mod(stack_t **stack, unsigned int line_number);
 void _pchar(stack_t **stack, unsigned int line_number);
 void _pstr(stack_t **stack, unsigned int line_number);
+void _rotl(stack_t **stack, unsigned int line_number);
 
 /*   Error functions  */
 void global_error(int error_code, ...);
