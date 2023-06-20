@@ -40,3 +40,44 @@ void _mod(stack_t **stack, unsigned int line_number)
 		current = current->next;
 	}
 }
+
+/**
+ * _pchar - prints the char at the top of the stack, followed by a new line.
+ * @stack: a pointer to the first node of the stack
+ * @line_number: the line number
+ */
+void _pchar(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current;
+	int a_ascii = 97, z_ascii = 122;
+	int A_ascii = 65, Z_ascii = 90;
+
+	if (!stack || !(*stack))
+	{
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
+		free_all(*stack);
+		exit(EXIT_FAILURE);
+	}
+
+	current = *stack;
+
+	while (current)
+	{
+		if (current->next == NULL)
+		{
+			if ((current->n >= a_ascii && current->n <= z_ascii) ||
+			    (current->n >= A_ascii && current->n <= Z_ascii))
+			{
+				printf("%c\n", current->n);
+			}
+			else
+			{
+				fprintf(stderr, "L%d: can't pchar, value out of range\n",
+					line_number);
+				free_all(*stack);
+				exit(EXIT_FAILURE);
+			}
+		}
+		current = current->next;
+	}
+}
