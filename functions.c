@@ -56,7 +56,7 @@ void free_all(stack_t *stack)
  */
 void line_parser(void)
 {
-	const char *delim = " \t\n";
+	const char *delim = " \t\n\r";
 
 	g_info.opcode = strtok(g_info.line, delim);
 	g_info.arg = strtok(NULL, delim);
@@ -73,7 +73,7 @@ int is_number(char *str)
 
 	while (str[i])
 	{
-		if (str[0] == '-')
+		if (i == 0 && (str[i] == '-' || str[i] == '+'))
 			i++;
 
 		if (str[i] < 48 || str[i] > 57)
