@@ -54,3 +54,33 @@ void _pall(stack_t **stack, unsigned int line_number)
 		current = current->prev;
 	}
 }
+
+/**
+ * _pint - prints the value of the top elmt of the stack
+ * @stack: the giving stack
+ * @line_number: the line number
+ */
+
+void _pint(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current;
+
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		free_all(*stack);
+		exit(EXIT_FAILURE);
+	}
+
+	current = *stack;
+
+	while (current != NULL)
+	{
+		if (current->next == NULL)
+		{
+			printf("%d\n", current->n);
+			break;
+		}
+		current = current->next;
+	}
+}

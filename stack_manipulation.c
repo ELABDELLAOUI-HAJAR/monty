@@ -50,3 +50,21 @@ void free_stack(stack_t *head)
 		head = current;
 	}
 }
+
+/**
+ * stack_len - return stack length
+ * @stack: the giving stack
+ * Return: the length of the stack
+ */
+int stack_len(stack_t *head)
+{
+	stack_t *tmp = head;
+	int len = 0;
+
+	while (tmp != NULL)
+	{
+		len++;
+		tmp = tmp->next;
+	}
+	return (len);
+}

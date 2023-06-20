@@ -63,5 +63,8 @@ void _pall(stack_t **stack, unsigned int line_number);
 int is_number(char *str);
 stack_t *add_nodeint_end(stack_t **h, const int n);
 void free_stack(stack_t *head);
+int stack_len(stack_t *head);
+void _pint(stack_t **stack, unsigned int line_number);
+
 
 #endif
