@@ -21,5 +21,6 @@ int main(int ac, char **av)
 
 	monty_interpreter(&stack);
 
+	fclose(g_info.file);
 	return (0);
 }
