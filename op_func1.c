@@ -22,6 +22,7 @@ void _add(stack_t **stack, unsigned int line_number)
 	free(current);
 }
 
+
 /**
  * _nop - doesn't do anything
  * @stack: a pointer to the first node of the stack

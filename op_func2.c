@@ -25,6 +25,7 @@ void _mod(stack_t **stack, unsigned int line_number)
 	free(current);
 }
 
+
 /**
  * _pchar - prints the char at the top of the stack, followed by a new line.
  * @stack: a pointer to the first node of the stack

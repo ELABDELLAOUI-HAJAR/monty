@@ -28,6 +28,7 @@ stack_t *add_nodeint_end(stack_t **h, const int n)
 	return (new);
 }
 
+
 /**
  * free_stack - frees the stack
  * @head: The head of the stack
