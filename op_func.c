@@ -31,18 +31,12 @@ void _pall(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current != NULL)
-	{
-		if (current->next == NULL)
-			break;
+	while (current->next != NULL)
 		current = current->next;
-	}
 
 	while (current != NULL)
 	{
 		printf("%d\n", current->n);
-		if (current->prev == NULL)
-			break;
 		current = current->prev;
 	}
 }
