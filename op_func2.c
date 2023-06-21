@@ -128,25 +128,22 @@ void _rotl(stack_t **stack, unsigned int line_number)
 
 void _rotr(stack_t **stack, unsigned int line_number)
 {
-	stack_t *prev = NULL, *curr, *next, *tmp;
+	stack_t *current, *tmp;
 
-	(void) line_number;
-
+	(void)line_number;
 	if (!stack || !(*stack) || stack_len(*stack) == 1)
 		return;
 
-	curr = *stack;
+	tmp = *stack;
 
-	while (curr)
-	{
-		tmp = curr;
-		next = curr->next;
+	*stack = (*stack)->next;
+	(*stack)->prev = NULL;
+	current = *stack;
 
-		curr->next = prev;
-		curr->prev = next;
+	while (current->next != NULL)
+		current = current->next;
 
-		curr = next;
-		prev = tmp;
-	}
-	*stack = prev;
+	current->next = tmp;
+	tmp->prev = current;
+	tmp->next = NULL;
 }
