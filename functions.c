@@ -57,7 +57,7 @@ void free_all(stack_t *stack)
  */
 void line_parser(void)
 {
-	const char *delim = " \n";
+	const char *delim = " \n\t";
 
 	g_info.opcode = strtok(g_info.line, delim);
 	g_info.arg = strtok(NULL, delim);
