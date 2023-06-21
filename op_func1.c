@@ -8,7 +8,7 @@
 
 void _add(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current, *prev = NULL;
+	stack_t *current;
 
 
 	if (stack_len(*stack) < 2)
@@ -16,18 +16,10 @@ void _add(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current != NULL)
-	{
-		if (current->next == NULL)
-		{
-			prev->n = prev->n + current->n;
-			prev->next = NULL;
-			free(current);
-			break;
-		}
-		prev = current;
-		current = current->next;
-	}
+	*stack = current->next;
+	(*stack)->n = (*stack)->n + current->n;
+	(*stack)->prev = NULL;
+	free(current);
 }
 
 /**
@@ -50,7 +42,7 @@ void _nop(stack_t **stack, unsigned int line_number)
 
 void _sub(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current, *prev = NULL;
+	stack_t *current;
 
 
 	if (stack_len(*stack) < 2)
@@ -58,18 +50,10 @@ void _sub(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current != NULL)
-	{
-		if (current->next == NULL)
-		{
-			prev->n = prev->n - current->n;
-			prev->next = NULL;
-			free(current);
-			break;
-		}
-		prev = current;
-		current = current->next;
-	}
+	*stack = current->next;
+	(*stack)->n = (*stack)->n - current->n;
+	(*stack)->prev = NULL;
+	free(current);
 }
 
 /**
@@ -80,7 +64,7 @@ void _sub(stack_t **stack, unsigned int line_number)
 
 void _div(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current, *prev = NULL;
+	stack_t *current;
 
 
 	if (stack_len(*stack) < 2)
@@ -88,20 +72,12 @@ void _div(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current != NULL)
-	{
-		if (current->next == NULL)
-		{
-			if (current->n == 0)
-				op_error_bis(7, *stack, g_info.opcode, line_number);
-			prev->n = prev->n / current->n;
-			prev->next = NULL;
-			free(current);
-			break;
-		}
-		prev = current;
-		current = current->next;
-	}
+	*stack = current->next;
+	if (current->n == 0)
+		op_error_bis(7, *stack, g_info.opcode, line_number);
+	(*stack)->n = (*stack)->n / current->n;
+	(*stack)->prev = NULL;
+	free(current);
 }
 
 /**
@@ -112,7 +88,7 @@ void _div(stack_t **stack, unsigned int line_number)
 
 void _mul(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current, *prev = NULL;
+	stack_t *current;
 
 
 	if (stack_len(*stack) < 2)
@@ -120,16 +96,8 @@ void _mul(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current != NULL)
-	{
-		if (current->next == NULL)
-		{
-			prev->n = prev->n * current->n;
-			prev->next = NULL;
-			free(current);
-			break;
-		}
-		prev = current;
-		current = current->next;
-	}
+	*stack = current->next;
+	(*stack)->n = (*stack)->n * current->n;
+	(*stack)->prev = NULL;
+	free(current);
 }

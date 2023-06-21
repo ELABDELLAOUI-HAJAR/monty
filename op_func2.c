@@ -9,7 +9,7 @@
 
 void _mod(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current, *prev = NULL;
+	stack_t *current;
 
 
 	if (stack_len(*stack) < 2)
@@ -17,20 +17,12 @@ void _mod(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current != NULL)
-	{
-		if (current->next == NULL)
-		{
-			if (current->n == 0)
-				op_error_bis(7, *stack, g_info.opcode, line_number);
-			prev->n = prev->n % current->n;
-			prev->next = NULL;
-			free(current);
-			break;
-		}
-		prev = current;
-		current = current->next;
-	}
+	*stack = current->next;
+	if (current->n == 0)
+		op_error_bis(7, *stack, g_info.opcode, line_number);
+	(*stack)->n = (*stack)->n % current->n;
+	(*stack)->prev = NULL;
+	free(current);
 }
 
 /**
@@ -47,17 +39,10 @@ void _pchar(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current)
-	{
-		if (current->next == NULL)
-		{
-			if (current->n >= 0  && current->n <= 127)
-				printf("%c\n", current->n);
-			else
-				op_error_bis(8, *stack, g_info.opcode, line_number);
-		}
-		current = current->next;
-	}
+	if (current->n >= 0  && current->n <= 127)
+		printf("%c\n", current->n);
+	else
+		op_error_bis(8, *stack, g_info.opcode, line_number);
 }
 
 /**
@@ -70,16 +55,9 @@ void _pstr(stack_t **stack, unsigned int line_number)
 	stack_t *current;
 
 	(void) line_number;
-	if (!stack || !(*stack))
-	{
-		printf("\n");
-		return;
-	}
 
 	current = *stack;
 
-	while (current->next != NULL)
-		current = current->next;
 
 	while (current != NULL)
 	{
@@ -87,7 +65,7 @@ void _pstr(stack_t **stack, unsigned int line_number)
 			printf("%c", current->n);
 		else
 			break;
-		current = current->prev;
+		current = current->next;
 	}
 	printf("\n");
 }
@@ -107,17 +85,17 @@ void _rotl(stack_t **stack, unsigned int line_number)
 	if (!stack || !(*stack) || stack_len(*stack) == 1)
 		return;
 
+	tmp = *stack;
+	*stack = tmp->next;
+	(*stack)->prev = NULL;
+
 	current = *stack;
 
 	while (current->next != NULL)
 		current = current->next;
-	tmp = current;
-	if (tmp->prev != NULL)
-		(tmp->prev)->next = NULL;
-	tmp->next = *stack;
-	(*stack)->prev = tmp;
-	tmp->prev = NULL;
-	*stack = tmp;
+	current->next = tmp;
+	tmp->prev = current;
+	tmp->next = NULL;
 }
 
 /**
@@ -128,22 +106,20 @@ void _rotl(stack_t **stack, unsigned int line_number)
 
 void _rotr(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current, *tmp;
+	stack_t *current;
 
 	(void)line_number;
 	if (!stack || !(*stack) || stack_len(*stack) == 1)
 		return;
 
-	tmp = *stack;
-
-	*stack = (*stack)->next;
-	(*stack)->prev = NULL;
 	current = *stack;
 
 	while (current->next != NULL)
 		current = current->next;
-
-	current->next = tmp;
-	tmp->prev = current;
-	tmp->next = NULL;
+	current->next = *stack;
+	if (current->prev != NULL)
+		(current->prev)->next = NULL;
+	current->prev = NULL;
+	(*stack)->prev = current;
+	*stack = current;
 }

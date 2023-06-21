@@ -31,13 +31,10 @@ void _pall(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current->next != NULL)
-		current = current->next;
-
 	while (current != NULL)
 	{
 		printf("%d\n", current->n);
-		current = current->prev;
+		current = current->next;
 	}
 }
 
@@ -56,15 +53,7 @@ void _pint(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current != NULL)
-	{
-		if (current->next == NULL)
-		{
-			printf("%d\n", current->n);
-			break;
-		}
-		current = current->next;
-	}
+	printf("%d\n", current->n);
 }
 
 /**
@@ -75,27 +64,16 @@ void _pint(stack_t **stack, unsigned int line_number)
 
 void _pop(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current, *prev = NULL;
+	stack_t *current;
 
 	if (stack == NULL || *stack == NULL)
 		op_error(4, *stack, g_info.opcode, line_number);
 
 	current = *stack;
 
-	while (current != NULL)
-	{
-		if (current->next == NULL)
-		{
-			if (current->prev != NULL)
-				prev->next = NULL;
-			else
-				*stack = NULL;
-			free(current);
-			break;
-		}
-		prev = current;
-		current = current->next;
-	}
+	*stack = current->next;
+	if (*stack)
+		(*stack)->prev = NULL;
 }
 
 
@@ -106,7 +84,7 @@ void _pop(stack_t **stack, unsigned int line_number)
  */
 void _swap(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current, *prev = NULL;
+	stack_t *current;
 	int tmp = 0;
 
 	if (stack_len(*stack) < 2)
@@ -114,17 +92,8 @@ void _swap(stack_t **stack, unsigned int line_number)
 
 	current = *stack;
 
-	while (current != NULL)
-	{
-		if (current->next == NULL)
-		{
-			tmp = prev->n;
-			prev->n = current->n;
-			current->n = tmp;
-			break;
-		}
-		prev = current;
-		current = current->next;
-	}
+	tmp = current->n;
+	current->n = current->next->n;
+	current->next->n = tmp;
 }
 

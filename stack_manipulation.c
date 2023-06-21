@@ -8,26 +8,22 @@
 */
 stack_t *add_nodeint_end(stack_t **h, const int n)
 {
-	stack_t *new, *current;
+	stack_t *new;
 
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 		return (NULL);
 	new->n = n;
 	new->next = NULL;
+	new->prev = NULL;
 
 	if (*h == NULL)
-	{
 		*h = new;
-		new->prev = NULL;
-	}
 	else
 	{
-		current = *h;
-		while (current->next != NULL)
-			current = current->next;
-		current->next = new;
-		new->prev = current;
+		new->next = *h;
+		(*h)->prev = new;
+		*h = new;
 	}
 	return (new);
 }
