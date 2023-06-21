@@ -21,6 +21,7 @@ typedef struct global_info_s
 	char *line;
 	char *opcode;
 	char *arg;
+	int lifo;
 } global_info;
 extern global_info g_info;
 
@@ -78,6 +79,9 @@ void _pchar(stack_t **stack, unsigned int line_number);
 void _pstr(stack_t **stack, unsigned int line_number);
 void _rotl(stack_t **stack, unsigned int line_number);
 void _rotr(stack_t **stack, unsigned int line_number);
+void _queue(stack_t **stack, unsigned int line_number);
+void _stack(stack_t **stack, unsigned int line_number);
+stack_t *add_node_queue(stack_t **h, const int n);
 
 /*   Error functions  */
 void global_error(int error_code, ...);

@@ -12,6 +12,7 @@ void monty_interpreter(stack_t **stack)
 	int line_count = 0;
 	(void)stack;
 
+	g_info.lifo = 1;
 	while (1)
 	{
 		nmbr_char = getline(&g_info.line, &n, g_info.file);

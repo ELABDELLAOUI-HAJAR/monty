@@ -12,7 +12,7 @@ stack_t *add_nodeint_end(stack_t **h, const int n)
 
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
-		return (NULL);
+		op_error(1, *h);
 	new->n = n;
 	new->next = NULL;
 	new->prev = NULL;
@@ -64,4 +64,36 @@ int stack_len(stack_t *head)
 		tmp = tmp->next;
 	}
 	return (len);
+}
+
+/**
+ * add_node_queue - adds a node at the end of a queue
+ * @stack: a pointer to the top of a stack
+ * @n: the integer to be added
+ * Return: a pointer to the new node
+ */
+stack_t *add_node_queue(stack_t **h, const int n)
+{
+	stack_t *new, *current;
+
+	new = malloc(sizeof(stack_t));
+	if (new == NULL)
+		op_error(1, *h);
+	new->n = n;
+	new->next = NULL;
+
+	if (*h == NULL)
+	{
+		*h = new;
+		new->prev = NULL;
+	}
+	else
+	{
+		current = *h;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new;
+		new->prev = current;
+	}
+	return (new);
 }

@@ -10,8 +10,10 @@ void _push(stack_t **stack, unsigned int line_number)
 	if (!g_info.arg || is_number(g_info.arg) == 1)
 		op_error(2, *stack, g_info.opcode, line_number);
 
-	if (!add_nodeint_end(stack, atoi(g_info.arg)))
-		op_error(1, *stack);
+	if (g_info.lifo)
+		add_nodeint_end(stack, atoi(g_info.arg));
+	else
+		add_node_queue(stack, atoi(g_info.arg));
 }
 
 /**
