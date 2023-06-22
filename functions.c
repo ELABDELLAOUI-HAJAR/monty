@@ -16,15 +16,10 @@ void monty_interpreter(stack_t **stack)
 	while (1)
 	{
 		nmbr_char = getline(&g_info.line, &n, g_info.file);
-		if (nmbr_char == -1)
+		if (nmbr_char <= 0)
 		{
-			if (feof(g_info.file))
-			{
-				free_all(*stack);
-				exit(EXIT_SUCCESS);
-			}
 			free_all(*stack);
-			exit(EXIT_FAILURE);
+			exit(EXIT_SUCCESS);
 		}
 
 		line_count++;
