@@ -67,6 +67,9 @@ int is_number(char *str)
 {
 	int i = 0;
 
+	if (str == NULL || *str == '\0')
+		return (1);
+
 	while (str[i])
 	{
 		if (i == 0 && (str[i] == '-' || str[i] == '+'))
