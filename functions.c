@@ -9,7 +9,7 @@ void monty_interpreter(stack_t **stack)
 	size_t n = 0;
 	ssize_t nmbr_char;
 	void (*p_func)(stack_t **stack, unsigned int line_number);
-	int line_count = 0;
+	unsigned int line_count = 0;
 	(void)stack;
 
 	g_info.lifo = 1;
